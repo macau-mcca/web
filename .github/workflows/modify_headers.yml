@@ -1,9 +1,6 @@
 name: Modify Headers
 
 on:
-  push:
-    branches:
-      - main
   schedule:
     - cron: '0 */3 * * *'
 
@@ -15,11 +12,23 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Modify _headers file
+    - name: Fetch data from API
       run: |
-        # Use shell commands or scripts to modify your _headers file.
-        # This is a simple example that appends a comment.
-        echo "# This comment was added by GitHub Actions" >> _headers
+        # Replace with your actual API endpoint
+        API_URL="https://corsproxy.io/?https%3A%2F%2Fjustmysocks5.net%2Fmembers%2Fgetbwcounter.php%3Fservice%3D531532%26id%3D0ffb1cda-1854-43ec-88c2-8d63cd32f280"
+        
+        # Use curl to fetch the data and jq to parse it
+        RESPONSE=$(curl -s "$API_URL")
+        KEYA=$(echo $RESPONSE | jq -r '.monthly_bw_limit_b')
+        KEYB=$(echo $RESPONSE | jq -r '.bw_counter_b')
+        KEYC=$(echo $RESPONSE | jq -r '.bw_reset_day_of_month')
+        
+        # Modify the _headers file
+        echo "/subscribe" > _headers
+        echo "  Content-Disposition: attachment; filename=mcca.yaml" >> _headers
+        echo "  keya: $KEYA" >> _headers
+        echo "  keyb: $KEYB" >> _headers
+        echo "  keyc: $KEYC" >> _headers
 
     - name: Commit and push changes
       run: |
