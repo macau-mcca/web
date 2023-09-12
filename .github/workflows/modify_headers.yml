@@ -20,6 +20,7 @@ jobs:
         
         # Use curl to fetch the data and jq to parse it
         RESPONSE=$(curl -s "$API_URL")
+        echo "API Response: $RESPONSE"
         KEYA=$(echo $RESPONSE | jq -r '.monthly_bw_limit_b')
         KEYB=$(echo $RESPONSE | jq -r '.bw_counter_b')
         KEYC=$(echo $RESPONSE | jq -r '.bw_reset_day_of_month')
