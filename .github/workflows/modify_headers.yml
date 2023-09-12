@@ -1,0 +1,30 @@
+name: Modify Headers
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 */3 * * *'
+
+jobs:
+  update-headers:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Modify _headers file
+      run: |
+        # Use shell commands or scripts to modify your _headers file.
+        # This is a simple example that appends a comment.
+        echo "# This comment was added by GitHub Actions" >> _headers
+
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add _headers
+        git commit -m "Modify _headers via GitHub Action"
+        git push
