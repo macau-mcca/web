@@ -44,8 +44,7 @@ jobs:
         HEADER_VALUE="upload=0; download=$DOWNLOAD; total=$TOTAL; expire=$EXPIRY_TIMESTAMP"
         
         # Modify the _headers file
-        echo "/subscribe" > _headers
-        echo "  Content-Disposition: attachment; filename=mccavpn.yaml" >> _headers
+        echo "/mccavpn" > _headers
         echo "  Subscription-Userinfo: $HEADER_VALUE" >> _headers
 
     - name: Commit and push changes
