@@ -1,5 +1,3 @@
 /subscribe
   Content-Disposition: attachment; filename=mcca.yaml
-  keya: 1000000000000
-  keyb: 221781863549
-  keyc: 28
+  Combined-Key: upload=0; download=221928117541; total=1000000000000; expire=1696907567
