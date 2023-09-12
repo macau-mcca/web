@@ -46,6 +46,8 @@ jobs:
         # Modify the _headers file
         echo "/mccavpn" > _headers
         echo "  Subscription-Userinfo: $HEADER_VALUE" >> _headers
+        echo "/mccavpn.html" >> _headers
+        echo "  Subscription-Userinfo: $HEADER_VALUE" >> _headers
 
     - name: Commit and push changes
       run: |
