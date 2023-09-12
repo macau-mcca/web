@@ -39,3 +39,5 @@ jobs:
         git add _headers
         git commit -m "Modify _headers via GitHub Action"
         git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
