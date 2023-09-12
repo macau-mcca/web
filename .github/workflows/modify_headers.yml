@@ -20,17 +20,20 @@ jobs:
         
         # Use curl to fetch the data and jq to parse it
         RESPONSE=$(curl -s "$API_URL")
-        echo "API Response: $RESPONSE"
-        KEYA=$(echo $RESPONSE | jq -r '.monthly_bw_limit_b')
-        KEYB=$(echo $RESPONSE | jq -r '.bw_counter_b')
-        KEYC=$(echo $RESPONSE | jq -r '.bw_reset_day_of_month')
+        DOWNLOAD=$(echo $RESPONSE | jq -r '.bw_counter_b')
+        TOTAL=$(echo $RESPONSE | jq -r '.monthly_bw_limit_b')
+        DAYS_TO_EXPIRE=$(echo $RESPONSE | jq -r '.bw_reset_day_of_month')
+        
+        # Calculate the Unix timestamp for expiry
+        EXPIRY_TIMESTAMP=$(date -d "+$DAYS_TO_EXPIRE days" +%s)
+        
+        # Create the combined header value
+        HEADER_VALUE="upload=0; download=$DOWNLOAD; total=$TOTAL; expire=$EXPIRY_TIMESTAMP"
         
         # Modify the _headers file
         echo "/subscribe" > _headers
         echo "  Content-Disposition: attachment; filename=mcca.yaml" >> _headers
-        echo "  keya: $KEYA" >> _headers
-        echo "  keyb: $KEYB" >> _headers
-        echo "  keyc: $KEYC" >> _headers
+        echo "  Combined-Key: $HEADER_VALUE" >> _headers
 
     - name: Commit and push changes
       run: |
