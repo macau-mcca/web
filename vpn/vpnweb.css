@@ -1,0 +1,143 @@
+@charset "utf-8";
+body{
+	font-family:Roboto,'SegoenUI',Arial,'Microsoft Jhenghei',sans-serif;
+	min-width: 960px;
+}
+
+header{
+	display: flex;
+	border-bottom: 1px solid #ebebeb;	
+}
+
+.header_overall {
+	font: 13px/27px Roboto,RobotoDraft,Arial,sans-serif;
+
+}
+.header_text {
+	display: inline-flex;
+	text-decoration: none;
+	color: rgba(0,0,0,0.87);
+	line-height: 24px;
+	padding-left: 15px;
+	vertical-align: middle;
+	align-items: center;
+	justify-content: center;
+}
+.header_text:hover{
+	text-decoration: underline;
+}
+.header_home:hover{
+	background-color:rgba(200,200,200,1.00);
+	border-radius: 50%;
+}
+.header_right {
+	float:right;
+	align-items: center;
+	width: 50%;
+	text-align: right;
+}
+
+.header_left{
+	width: 48%;
+	margin-left: 15px;
+	display: flex;
+	align-items: center;
+}
+.header_svg {
+	width: 30px;
+	height: 30px;
+	vertical-align: middle;
+}
+.header_logo{
+	height: 24px;
+	padding-bottom: 8px;
+}
+section h1 {
+	display:flex;
+	flex-direction: column;
+	width:40%;
+	margin-left:15%;
+	height: 40px;
+	justify-content: center;
+}
+section{
+	display: block;
+	align-items: center;
+
+}
+
+.section_a{
+	display: flex;
+	justify-content: center;
+	text-decoration: none;
+	color: rgba(0,0,0,0.87);
+	box-sizing: border-box;
+	width:150px;
+	height: 150px;
+	margin-left: 1.5%;
+}
+
+.section_adiv{
+	display: flex;
+	justify-content: center;
+	padding-bottom: 20%;
+}
+
+.section_div{
+	display: flex;
+	margin-left: 15%;
+	margin-top: 40px;
+	margin-right: 15%;
+}
+
+.section_div_left{
+	display: inline;
+	width:30%;	
+}
+
+.section_div_div{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.section_div_left_text{
+	text-align: center;
+}
+.section_div_right{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width:70%;
+	
+}
+.section_nav{
+	display: flex;
+	justify-content: center;
+}
+.section_nav_div{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+}
+.section_a:hover{
+	border-radius: 10px;
+	background-color:rgba(200,200,200,1.00);
+}
+
+.section_img_div{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40%;
+}
+
+.section_maintext{
+	text-align: center;
+}
+
+.section_div_p{
+	margin-bottom: 5%;
+	font-size:12px;
+}
