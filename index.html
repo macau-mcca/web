@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="mcca,pku,北京大學,澳門文化,澳協,社團">
+<title>mccaweb</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="shortcut icon" type="image/x-icon" href="image/mcca_titlelogo.png">
+<link rel="apple-touch-icon-precompsed" href="image/mcca_titlelogo.png">
+</head>
+<body>
+	<div class="container">
+		<!-- toolbar -->
+		<div class="navigation active">
+			<ul>
+				<li>
+					<a href="#">
+						<span class="icon"><img src="image/logo.png"></span>
+						<span class="title">北京大學澳門文化交流協會</span>
+					</a>
+				</li>
+				<li class="hovered">
+					<a href="#">
+						<span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+						<span class="title">首頁</span>
+					</a>
+				</li>
+				<li>
+					<a href="vpn/index.html">
+						<span class="icon"><ion-icon name="radio-outline"></ion-icon></span>
+						<span class="title">網絡</span>
+					</a>
+				</li>
+				<li>
+					<a href="link/index.html">
+						<span class="icon"><ion-icon name="apps-outline"></ion-icon></span>
+						<span class="title">常用網站</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<span class="icon"><ion-icon name="alert-outline"></ion-icon></span>
+						<span class="title">其他</span>
+					</a>
+				</li>
+			</ul>	
+		</div>
+
+		<!-- main -->
+		<div class="main active">
+			<div class="topbar active">
+				<div class="toggle">
+					<ion-icon name="menu-outline"></ion-icon>
+				</div>
+				<!-- search -->
+				<div class="search">
+					<!--
+					<label>
+						<input type="text" placeholder="Search here">
+						<ion-icon name="search-outline"></ion-icon>
+					</label>
+					-->
+				</div>
+				<!-- img -->
+				<div class="mccapig">
+					<img src="image/MCCA_LIHKG_Pig.png">
+				</div>
+			</div>
+			<div class="elementCase">
+				<div class="home1">
+					<div>
+						<img src="image/mcca_logo.png">
+					</div>
+					<div>
+						<h1>北京大學澳門文化交流協會</h1>
+					</div>
+					<a href="https://www.instagram.com/pkumcca1999/" target="_blank"><div class="primaryLink">
+						<img src='image/ins.png'>
+						<p>MCCA的Instagram</p>
+					</div></a>
+				</div>
+				<div class="home2">
+					<div><img src="image/board.png"></div>
+					<div>
+						<h2>宗旨</h2>
+						<p>團結北大澳生，宣揚澳門文化，</p>
+						<p>促住京澳交流，回饋澳門社會。</p>
+					</div>
+
+				</div>
+				<div class="home3">
+					<div><img src="image/sportsday.png"><h2>清北運動會</h2></div>
+					<div><img src="image/christmas.png"><h2>節慶活動</h2></div>
+					<div><img src="image/cantoneseday.png"><h2>粵語班</h2></div>
+					<div><img src="image/internationcultureday.png"><h2>國際文化節</h2></div>
+					<div><img src="image/newyear.png"><h2>新年晚會</h2></div>
+					<div><img src="image/youthforum.jpg"><h2>青年論壇</h2></div>
+				</div>
+				<div class="home4">
+					<div class="align">
+						<h1>工作紀錄</h1>
+						<div class="linkNav">
+							<a class="linkContent" href='https://sprout-salt-0e4.notion.site/MCCA-2021-7-9-bfd88d3831da4a3fbcfd0451243afb96' target="_blank">
+								<div><img src="image/summer.jpg"></div>
+								<div><p>7月-9月</p></div>
+							</a>
+							<a class="linkContent" href='https://sprout-salt-0e4.notion.site/MCCA-2021-7-9-bfd88d3831da4a3fbcfd0451243afb96' target="_blank">
+								<div><img src="image/fall.jpg"></div>
+								<div><p>10月-12月</p></div>
+							</a>
+							<a class="linkContent" href=''>
+								<div><img src="image/winter.jpg"></div>
+								<div><p>敬請期待!</p></div>
+							</a>
+							<a class="linkContent" href=''>
+								<div><img src="image/spring.jpg"></div>
+								<div><p>敬請期待!</p></div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	
+	
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+	<script>
+		// Service Worker
+		if ('serviceWorker' in navigator) {
+		    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+		        console.log('Service Worker registered with scope:', registration.scope);
+		    }).catch(function(error) {
+		        console.log('Service Worker registration failed:', error);
+		    });
+		}
+		// MenuToggle
+		let toggle = document.querySelector('.toggle');
+		let navigation = document.querySelector('.navigation');
+		let main = document.querySelector('.main');
+		let topbar = document.querySelector('.topbar')
+
+		toggle.onclick = function(){
+			navigation.classList.toggle('active');
+			main.classList.toggle('active');
+			topbar.classList.toggle('active');
+		}
+
+		// add hovered class in selected list item
+		let list = document.querySelectorAll('.navigation li');
+		let mainlist = document.querySelector('.navigation ul');
+		let nowactive = document.getElementsByClassName("hovered")[0];
+		function activeLink(){
+			list.forEach((item) =>
+			item.classList.remove('hovered'));
+			this.classList.add('hovered');
+		}
+		function backLink(){
+			list.forEach((item) =>
+			item.classList.remove('hovered'));
+			nowactive.classList.add('hovered');
+		}
+		list.forEach((item) =>
+		item.addEventListener('mouseover',activeLink));
+		mainlist.addEventListener('mouseleave',backLink);
+	</script>
+</body>
+</html>
