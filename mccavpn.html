@@ -143,37 +143,45 @@ dns:
 proxies:
 - name: "US美國 01"
   type: ss
-  server: c15s1.jamjams3.net
-  port: 10220
+  server: c86s1.jjcruises.com
+  port: 5299
   cipher: aes-256-gcm
-  password: "Dr2aHh5NBYVxJT8r"
+  password: "qLUAjTTF34Aj2Ktg"
 - name: "US美國 02"
   type: ss
-  server: c15s2.jamjams3.net
-  port: 10220
+  server: c86s2.jjcruises.com
+  port: 5299
   cipher: aes-256-gcm
-  password: "Dr2aHh5NBYVxJT8r"
+  password: "qLUAjTTF34Aj2Ktg"
 - name: "US美國 03"
   type: vmess
-  server: c15s3.jamjams3.net
-  port: 10220
-  uuid: 0ffb1cda-1854-43ec-88c2-8d63cd32f280
+  server: c86s3.jjcruises.com
+  port: 5299
+  uuid: 0bb9becb-d337-4a79-8b51-e6a4188e2661
   alterId: 0
   cipher: auto
   tls: false
 - name: "US美國 04"
   type: vmess
-  server: c15s4.jamjams3.net
-  port: 10220
-  uuid: 0ffb1cda-1854-43ec-88c2-8d63cd32f280
+  server: c86s4.jjcruises.com
+  port: 5299
+  uuid: 0bb9becb-d337-4a79-8b51-e6a4188e2661
   alterId: 0
   cipher: auto
   tls: false
 - name: "US美國 05"
   type: vmess
-  server: c15s801.jamjams3.net
-  port: 10220
-  uuid: 0ffb1cda-1854-43ec-88c2-8d63cd32f280
+  server: c86s5.jjcruises.com
+  port: 5299
+  uuid: 0bb9becb-d337-4a79-8b51-e6a4188e2661
+  alterId: 0
+  cipher: auto
+  tls: false
+- name: "US美國 06"
+  type: vmess
+  server: c86s801.jjcruises.com
+  port: 5299
+  uuid: 0bb9becb-d337-4a79-8b51-e6a4188e2661
   alterId: 0
   cipher: auto
   tls: false
@@ -186,6 +194,7 @@ proxy-groups:
       - US美國 03
       - US美國 04
       - US美國 05
+      - US美國 06
   - name: 🍎 Apple
     type: select
     proxies:
@@ -202,6 +211,7 @@ proxy-groups:
       - US美國 03
       - US美國 04
       - US美國 05
+      - US美國 06
   - name: 🎬 YouTube
     type: select
     proxies:
@@ -212,6 +222,7 @@ proxy-groups:
       - US美國 03
       - US美國 04
       - US美國 05
+      - US美國 06
   - name: 🎬 Bilibili
     type: select
     proxies:
@@ -222,6 +233,7 @@ proxy-groups:
       - US美國 03
       - US美國 04
       - US美國 05
+      - US美國 06
   - name: 🎬 myTVSUPER
     type: select
     proxies:
@@ -232,6 +244,7 @@ proxy-groups:
       - US美國 03
       - US美國 04
       - US美國 05
+      - US美國 06
   - name: 📲 LineTV
     type: select
     proxies:
@@ -242,16 +255,18 @@ proxy-groups:
       - US美國 03
       - US美國 04
       - US美國 05
+      - US美國 06
   - name: 🎬 iQiyi
     type: select
     proxies:
-      - PROXY
       - DIRECT
+      - PROXY
       - US美國 01
       - US美國 02
       - US美國 03
       - US美國 04
       - US美國 05
+      - US美國 06
   - name: 🎵 Tiktok
     type: select
     proxies:
@@ -262,6 +277,7 @@ proxy-groups:
       - US美國 03
       - US美國 04
       - US美國 05
+      - US美國 06
   - name: 📺 Netflix
     type: select
     proxies:
@@ -272,6 +288,7 @@ proxy-groups:
       - US美國 03
       - US美國 04
       - US美國 05
+      - US美國 06
   - name: 🌐 Google
     type: select
     proxies:
@@ -282,6 +299,7 @@ proxy-groups:
       - US美國 03
       - US美國 04
       - US美國 05
+      - US美國 06
   - name: 🖥 Microsoft
     type: select
     proxies:
@@ -292,6 +310,7 @@ proxy-groups:
       - US美國 03
       - US美國 04
       - US美國 05
+      - US美國 06
   - name: 📟 Twitter
     type: select
     proxies:
@@ -302,6 +321,7 @@ proxy-groups:
       - US美國 03
       - US美國 04
       - US美國 05
+      - US美國 06
   - name: 🧠 OpenAI
     type: select
     proxies:
@@ -312,6 +332,7 @@ proxy-groups:
       - US美國 03
       - US美國 04
       - US美國 05
+      - US美國 06
   - name: 📺 International-Media
     type: select
     proxies:
@@ -322,6 +343,7 @@ proxy-groups:
       - US美國 03
       - US美國 04
       - US美國 05
+      - US美國 06
   - name: China-Media
     type: select
     proxies:
