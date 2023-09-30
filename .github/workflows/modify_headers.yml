@@ -16,7 +16,7 @@ jobs:
     - name: Fetch data from API
       run: |
         # Replace with your actual API endpoint
-        API_URL="https://justmysocks5.net/members/getbwcounter.php?service=531532&id=0ffb1cda-1854-43ec-88c2-8d63cd32f280"
+        API_URL="https://justmysocks5.net/members/getbwcounter.php?service=849862&id=0bb9becb-d337-4a79-8b51-e6a4188e2661"
         
         # Use curl to fetch the data and jq to parse it
         RESPONSE=$(curl -s "$API_URL")
