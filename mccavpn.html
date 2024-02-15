@@ -18,7 +18,7 @@ mode: Rule
 
 # 设置日志输出级别 (默认级别：silent，即不输出任何内容，以避免因日志内容过大而导致程序内存溢出）。
 # 5 个级别：silent / info / warning / error / debug。级别越高日志输出量越大，越倾向于调试，若需要请自行开启。
-log-level: silent
+log-level: info
 # Clash 的 RESTful API
 external-controller: '0.0.0.0:9090'
 secret: '' 
@@ -44,6 +44,7 @@ dns:
   ipv6: false
   enhanced-mode: fake-ip
   fake-ip-filter:
+    - "*.pku.edu.cn"
     - "*.lan"
     - stun.*.*.*
     - stun.*.*
@@ -211,6 +212,11 @@ proxies:
   allowInsecure : true
   skip-cert-verify : true
 
+- name: "CN中國 PKU"
+  type: socks5
+  port: 11080
+  server: 127.0.0.1
+
 proxy-groups:
   - name: PROXY
     type: select
@@ -221,6 +227,7 @@ proxy-groups:
       - US美國 04
       - US美國 05
       - US美國 06
+
   - name: 🍎 Apple
     type: select
     proxies:
@@ -282,6 +289,7 @@ proxy-groups:
       - US美國 04
       - US美國 05
       - US美國 06
+
   - name: 🎬 iQiyi
     type: select
     proxies:
@@ -293,6 +301,7 @@ proxy-groups:
       - US美國 04
       - US美國 05
       - US美國 06
+
   - name: 🎵 Tiktok
     type: select
     proxies:
@@ -348,6 +357,7 @@ proxy-groups:
       - US美國 04
       - US美國 05
       - US美國 06
+
   - name: 🧠 OpenAI
     type: select
     proxies:
@@ -359,6 +369,7 @@ proxy-groups:
       - US美國 04
       - US美國 05
       - US美國 06
+
   - name: 📺 International-Media
     type: select
     proxies:
@@ -370,27 +381,38 @@ proxy-groups:
       - US美國 04
       - US美國 05
       - US美國 06
-  - name: China-Media
-    type: select
-    proxies:
-      - DIRECT
-      - PROXY
+
   - name: Hijacking
     type: select
     proxies:
       - REJECT
       - DIRECT
-  - name: China-Websites
+
+  - name: 🇨🇳 Media
     type: select
     proxies:
       - DIRECT
       - PROXY
+
+  - name: 🇨🇳 PKU
+    type: select
+    proxies:
+      - DIRECT
+      - CN中國 PKU
+  
+  - name: 🇨🇳 Websites
+    type: select
+    proxies:
+      - DIRECT
+      - PROXY
+
   - name: Final
     type: select
     proxies:
       - PROXY
       - DIRECT
 rules:
+  - DOMAIN-SUFFIX,pku.edu.cn,🇨🇳 PKU
   - DOMAIN-SUFFIX,openai.com,🧠 OpenAI
   - DOMAIN-SUFFIX,ap.spotify.com,DIRECT
   - DOMAIN-KEYWORD,epochtimes,REJECT
@@ -853,10 +875,10 @@ rules:
   - DOMAIN-SUFFIX,spoti.fi,📺 International-Media
   - IP-CIDR,35.186.224.47/32,📺 International-Media
   - DOMAIN-SUFFIX,tidal.com,📺 International-Media
-  - DOMAIN-SUFFIX,iqiyi.com,China-Media
-  - DOMAIN-SUFFIX,71.am,China-Media
-  - DOMAIN-SUFFIX,bilibili.com,China-Media
-  - DOMAIN,upos-hz-mirrorakam.akamaized.net,China-Media
+  - DOMAIN-SUFFIX,iqiyi.com,🇨🇳 Media
+  - DOMAIN-SUFFIX,71.am,🇨🇳 Media
+  - DOMAIN-SUFFIX,bilibili.com,🇨🇳 Media
+  - DOMAIN,upos-hz-mirrorakam.akamaized.net,🇨🇳 Media
   - DOMAIN-SUFFIX,17gouwuba.com,Hijacking
   - DOMAIN-SUFFIX,186078.com,Hijacking
   - DOMAIN-SUFFIX,189zj.cn,Hijacking
@@ -1046,197 +1068,197 @@ rules:
   - DOMAIN-SUFFIX,yuanchengxiezuo.com,Hijacking
   - DOMAIN-SUFFIX,zbrushcn.com,Hijacking
   - DOMAIN-SUFFIX,zhzzx.com,Hijacking
-  - DOMAIN-SUFFIX,qhres.com,China-Websites
-  - DOMAIN-SUFFIX,qhimg.com,China-Websites
-  - DOMAIN-SUFFIX,akadns.net,China-Websites
-  - DOMAIN-SUFFIX,alibaba.com,China-Websites
-  - DOMAIN-SUFFIX,alicdn.com,China-Websites
-  - DOMAIN-SUFFIX,alikunlun.com,China-Websites
-  - DOMAIN-SUFFIX,alipay.com,China-Websites
-  - DOMAIN-SUFFIX,amap.com,China-Websites
-  - DOMAIN-SUFFIX,dingtalk.com,China-Websites
-  - DOMAIN-SUFFIX,taobao.com,China-Websites
-  - DOMAIN-SUFFIX,tmall.com,China-Websites
-  - DOMAIN-SUFFIX,tmall.hk,China-Websites
-  - DOMAIN-SUFFIX,ykimg.com,China-Websites
-  - DOMAIN-SUFFIX,youku.com,China-Websites
-  - DOMAIN-SUFFIX,xiami.com,China-Websites
-  - DOMAIN-SUFFIX,xiami.net,China-Websites
-  - DOMAIN-SUFFIX,baidu.com,China-Websites
-  - DOMAIN-SUFFIX,baidubcr.com,China-Websites
-  - DOMAIN-SUFFIX,bdstatic.com,China-Websites
-  - DOMAIN-SUFFIX,acgvideo.com,China-Websites
-  - DOMAIN-SUFFIX,biliapi.com,China-Websites
-  - DOMAIN-SUFFIX,biliapi.net,China-Websites
-  - DOMAIN-SUFFIX,bilibili.com,China-Websites
-  - DOMAIN-SUFFIX,hdslb.com,China-Websites
-  - DOMAIN-SUFFIX,blizzard.com,China-Websites
-  - DOMAIN-SUFFIX,battle.net,China-Websites
-  - DOMAIN,blzddist1-a.akamaihd.net,China-Websites
-  - DOMAIN-SUFFIX,feiliao.com,China-Websites
-  - DOMAIN-SUFFIX,pstatp.com,China-Websites
-  - DOMAIN-SUFFIX,snssdk.com,China-Websites
-  - DOMAIN-SUFFIX,iesdouyin.com,China-Websites
-  - DOMAIN-SUFFIX,toutiao.com,China-Websites
-  - DOMAIN-SUFFIX,343480.com,China-Websites
-  - DOMAIN-SUFFIX,baduziyuan.com,China-Websites
-  - DOMAIN-SUFFIX,com-hs-hkdy.com,China-Websites
-  - DOMAIN-SUFFIX,czybjz.com,China-Websites
-  - DOMAIN-SUFFIX,dandanzan.com,China-Websites
-  - DOMAIN-SUFFIX,fjhps.com,China-Websites
-  - DOMAIN-SUFFIX,kuyunbo.club,China-Websites
-  - DOMAIN-SUFFIX,21cn.com,China-Websites
-  - DOMAIN-SUFFIX,hitv.com,China-Websites
-  - DOMAIN-SUFFIX,mgtv.com,China-Websites
-  - DOMAIN-SUFFIX,iqiyi.com,China-Websites
-  - DOMAIN-SUFFIX,iqiyipic.com,China-Websites
-  - DOMAIN-SUFFIX,71.am.com,China-Websites
-  - DOMAIN-SUFFIX,jd.com,China-Websites
-  - DOMAIN-SUFFIX,jd.hk,China-Websites
-  - DOMAIN-SUFFIX,360buyimg.com,China-Websites
-  - DOMAIN-SUFFIX,iciba.com,China-Websites
-  - DOMAIN-SUFFIX,ksosoft.com,China-Websites
-  - DOMAIN-SUFFIX,meitu.com,China-Websites
-  - DOMAIN-SUFFIX,meitudata.com,China-Websites
-  - DOMAIN-SUFFIX,meitustat.com,China-Websites
-  - DOMAIN-SUFFIX,meipai.com,China-Websites
-  - DOMAIN-SUFFIX,duokan.com,China-Websites
-  - DOMAIN-SUFFIX,mi-img.com,China-Websites
-  - DOMAIN-SUFFIX,miui.com,China-Websites
-  - DOMAIN-SUFFIX,xiaomi.com,China-Websites
-  - DOMAIN-SUFFIX,microsoft.com,China-Websites
-  - DOMAIN-SUFFIX,windows.com,China-Websites
-  - DOMAIN-SUFFIX,windowsupdate.com,China-Websites
-  - DOMAIN-SUFFIX,visualstudio.com,China-Websites
-  - DOMAIN-SUFFIX,msecnd.net,China-Websites
-  - DOMAIN,officecdn-microsoft-com.akamaized.net,China-Websites
-  - DOMAIN-SUFFIX,163.com,China-Websites
-  - DOMAIN-SUFFIX,126.net,China-Websites
-  - DOMAIN-SUFFIX,127.net,China-Websites
-  - DOMAIN-SUFFIX,163yun.com,China-Websites
-  - DOMAIN-SUFFIX,lofter.com,China-Websites
-  - DOMAIN-SUFFIX,ydstatic.com,China-Websites
-  - DOMAIN-SUFFIX,sina.com,China-Websites
-  - DOMAIN-SUFFIX,weibo.com,China-Websites
-  - DOMAIN-SUFFIX,sohu.com,China-Websites
-  - DOMAIN-SUFFIX,sohucs.com,China-Websites
-  - DOMAIN-SUFFIX,sohu-inc.com,China-Websites
-  - DOMAIN-SUFFIX,v-56.com,China-Websites
-  - DOMAIN-SUFFIX,sogo.com,China-Websites
-  - DOMAIN-SUFFIX,sogou.com,China-Websites
-  - DOMAIN-SUFFIX,sogoucdn.com,China-Websites
-  - DOMAIN-SUFFIX,steampowered.com,China-Websites
-  - DOMAIN-SUFFIX,steam-chat.com,China-Websites
-  - DOMAIN-SUFFIX,steamgames.com,China-Websites
-  - DOMAIN-SUFFIX,steamusercontent.com,China-Websites
-  - DOMAIN-SUFFIX,steamcontent.com,China-Websites
-  - DOMAIN-SUFFIX,steamstatic.com,China-Websites
-  - DOMAIN-SUFFIX,steamcdn-a.akamaihd.net,China-Websites
-  - DOMAIN-SUFFIX,qq.com,China-Websites
-  - DOMAIN-SUFFIX,tencent.com,China-Websites
-  - DOMAIN-SUFFIX,jstucdn.com,China-Websites
-  - DOMAIN-SUFFIX,zimuzu.io,China-Websites
-  - DOMAIN-SUFFIX,zimuzu.tv,China-Websites
-  - DOMAIN-SUFFIX,zmz2019.com,China-Websites
-  - DOMAIN-SUFFIX,zmzapi.com,China-Websites
-  - DOMAIN-SUFFIX,zmzapi.net,China-Websites
-  - DOMAIN-SUFFIX,zmzfile.com,China-Websites
-  - DOMAIN-SUFFIX,chinanetcenter.com,China-Websites
-  - DOMAIN-SUFFIX,wangsu.com,China-Websites
-  - DOMAIN-SUFFIX,meixincdn.com,China-Websites
-  - DOMAIN-SUFFIX,ipip.net,China-Websites
-  - DOMAIN-SUFFIX,ip.la,China-Websites
-  - DOMAIN-SUFFIX,ip-cdn.com,China-Websites
-  - DOMAIN-SUFFIX,ipv6-test.com,China-Websites
-  - DOMAIN-SUFFIX,test-ipv6.com,China-Websites
-  - DOMAIN-SUFFIX,whatismyip.com,China-Websites
-  - DOMAIN,ip.bjango.com,China-Websites
-  - DOMAIN-SUFFIX,netspeedtestmaster.com,China-Websites
-  - DOMAIN,speedtest.macpaw.com,China-Websites
-  - DOMAIN-SUFFIX,awesome-hd.me,China-Websites
-  - DOMAIN-SUFFIX,broadcasthe.net,China-Websites
-  - DOMAIN-SUFFIX,chdbits.co,China-Websites
-  - DOMAIN-SUFFIX,classix-unlimited.co.uk,China-Websites
-  - DOMAIN-SUFFIX,empornium.me,China-Websites
-  - DOMAIN-SUFFIX,gazellegames.net,China-Websites
-  - DOMAIN-SUFFIX,hdchina.org,China-Websites
-  - DOMAIN-SUFFIX,hdsky.me,China-Websites
-  - DOMAIN-SUFFIX,jpopsuki.eu,China-Websites
-  - DOMAIN-SUFFIX,keepfrds.com,China-Websites
-  - DOMAIN-SUFFIX,m-team.cc,China-Websites
-  - DOMAIN-SUFFIX,nanyangpt.com,China-Websites
-  - DOMAIN-SUFFIX,ncore.cc,China-Websites
-  - DOMAIN-SUFFIX,open.cd,China-Websites
-  - DOMAIN-SUFFIX,ourbits.club,China-Websites
-  - DOMAIN-SUFFIX,passthepopcorn.me,China-Websites
-  - DOMAIN-SUFFIX,privatehd.to,China-Websites
-  - DOMAIN-SUFFIX,redacted.ch,China-Websites
-  - DOMAIN-SUFFIX,springsunday.net,China-Websites
-  - DOMAIN-SUFFIX,tjupt.org,China-Websites
-  - DOMAIN-SUFFIX,totheglory.im,China-Websites
-  - DOMAIN-SUFFIX,cn,China-Websites
-  - DOMAIN-SUFFIX,8686c.com,China-Websites
-  - DOMAIN-SUFFIX,aixifan.com,China-Websites
-  - DOMAIN-SUFFIX,beitaichufang.com,China-Websites
-  - DOMAIN-SUFFIX,booking.com,China-Websites
-  - DOMAIN-SUFFIX,bstatic.com,China-Websites
-  - DOMAIN-SUFFIX,cailianpress.com,China-Websites
-  - DOMAIN-SUFFIX,chunyu.mobi,China-Websites
-  - DOMAIN-SUFFIX,chushou.tv,China-Websites
-  - DOMAIN-SUFFIX,cmbchina.com,China-Websites
-  - DOMAIN-SUFFIX,cmbimg.com,China-Websites
-  - DOMAIN-SUFFIX,ctrip.com,China-Websites
-  - DOMAIN-SUFFIX,dfcfw.com,China-Websites
-  - DOMAIN-SUFFIX,douban.com,China-Websites
-  - DOMAIN-SUFFIX,doubanio.com,China-Websites
-  - DOMAIN-SUFFIX,douyu.com,China-Websites
-  - DOMAIN-SUFFIX,dxycdn.com,China-Websites
-  - DOMAIN-SUFFIX,eastmoney.com,China-Websites
-  - DOMAIN-SUFFIX,futunn.com,China-Websites
-  - DOMAIN-SUFFIX,geilicdn.com,China-Websites
-  - DOMAIN-SUFFIX,hicloud.com,China-Websites
-  - DOMAIN-SUFFIX,hostbuf.com,China-Websites
-  - DOMAIN-SUFFIX,huya.com,China-Websites
-  - DOMAIN-SUFFIX,infinitynewtab.com,China-Websites
-  - DOMAIN-SUFFIX,ithome.com,China-Websites
-  - DOMAIN-SUFFIX,keepcdn.com,China-Websites
-  - DOMAIN-SUFFIX,kkmh.com,China-Websites
-  - DOMAIN-SUFFIX,luojilab.com,China-Websites
-  - DOMAIN-SUFFIX,maoyun.tv,China-Websites
-  - DOMAIN-SUFFIX,meituan.net,China-Websites
-  - DOMAIN-SUFFIX,mobike.com,China-Websites
-  - DOMAIN-SUFFIX,mubu.com,China-Websites
-  - DOMAIN-SUFFIX,myzaker.com,China-Websites
-  - DOMAIN-SUFFIX,nvidia.com,China-Websites
-  - DOMAIN-SUFFIX,paypal.com,China-Websites
-  - DOMAIN-SUFFIX,paypalobjects.com,China-Websites
-  - DOMAIN-SUFFIX,qyer.com,China-Websites
-  - DOMAIN-SUFFIX,qyerstatic.com,China-Websites
-  - DOMAIN-SUFFIX,ronghub.com,China-Websites
-  - DOMAIN-SUFFIX,ruguoapp.com,China-Websites
-  - DOMAIN-SUFFIX,smzdm.com,China-Websites
-  - DOMAIN-SUFFIX,snapdrop.net,China-Websites
-  - DOMAIN-SUFFIX,sspai.com,China-Websites
-  - DOMAIN-SUFFIX,teamviewer.com,China-Websites
-  - DOMAIN-SUFFIX,tianyancha.com,China-Websites
-  - DOMAIN-SUFFIX,udacity.com,China-Websites
-  - DOMAIN-SUFFIX,uning.com,China-Websites
-  - DOMAIN-SUFFIX,weather.com,China-Websites
-  - DOMAIN-SUFFIX,weidian.com,China-Websites
-  - DOMAIN-SUFFIX,xmcdn.com,China-Websites
-  - DOMAIN-SUFFIX,yangkeduo.com,China-Websites
-  - DOMAIN-SUFFIX,zhangzishi.cc,China-Websites
-  - DOMAIN-SUFFIX,zhihu.com,China-Websites
-  - DOMAIN-SUFFIX,zhimg.com,China-Websites
-  - DOMAIN-SUFFIX,zhuihd.com,China-Websites
-  - DOMAIN,download.jetbrains.com,China-Websites
-  - DOMAIN-SUFFIX,local,China-Websites
-  - DOMAIN,mtalk.google.com,China-Websites
-  - IP-CIDR,192.168.0.0/16,China-Websites
-  - IP-CIDR,10.0.0.0/8,China-Websites
-  - IP-CIDR,172.16.0.0/12,China-Websites
-  - IP-CIDR,127.0.0.0/8,China-Websites
-  - IP-CIDR,100.64.0.0/10,China-Websites
+  - DOMAIN-SUFFIX,qhres.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,qhimg.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,akadns.net,🇨🇳 Websites
+  - DOMAIN-SUFFIX,alibaba.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,alicdn.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,alikunlun.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,alipay.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,amap.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,dingtalk.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,taobao.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,tmall.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,tmall.hk,🇨🇳 Websites
+  - DOMAIN-SUFFIX,ykimg.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,youku.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,xiami.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,xiami.net,🇨🇳 Websites
+  - DOMAIN-SUFFIX,baidu.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,baidubcr.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,bdstatic.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,acgvideo.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,biliapi.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,biliapi.net,🇨🇳 Websites
+  - DOMAIN-SUFFIX,bilibili.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,hdslb.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,blizzard.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,battle.net,🇨🇳 Websites
+  - DOMAIN,blzddist1-a.akamaihd.net,🇨🇳 Websites
+  - DOMAIN-SUFFIX,feiliao.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,pstatp.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,snssdk.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,iesdouyin.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,toutiao.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,343480.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,baduziyuan.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,com-hs-hkdy.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,czybjz.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,dandanzan.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,fjhps.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,kuyunbo.club,🇨🇳 Websites
+  - DOMAIN-SUFFIX,21cn.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,hitv.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,mgtv.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,iqiyi.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,iqiyipic.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,71.am.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,jd.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,jd.hk,🇨🇳 Websites
+  - DOMAIN-SUFFIX,360buyimg.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,iciba.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,ksosoft.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,meitu.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,meitudata.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,meitustat.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,meipai.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,duokan.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,mi-img.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,miui.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,xiaomi.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,microsoft.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,windows.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,windowsupdate.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,visualstudio.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,msecnd.net,🇨🇳 Websites
+  - DOMAIN,officecdn-microsoft-com.akamaized.net,🇨🇳 Websites
+  - DOMAIN-SUFFIX,163.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,126.net,🇨🇳 Websites
+  - DOMAIN-SUFFIX,127.net,🇨🇳 Websites
+  - DOMAIN-SUFFIX,163yun.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,lofter.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,ydstatic.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,sina.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,weibo.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,sohu.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,sohucs.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,sohu-inc.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,v-56.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,sogo.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,sogou.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,sogoucdn.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,steampowered.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,steam-chat.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,steamgames.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,steamusercontent.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,steamcontent.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,steamstatic.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,steamcdn-a.akamaihd.net,🇨🇳 Websites
+  - DOMAIN-SUFFIX,qq.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,tencent.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,jstucdn.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,zimuzu.io,🇨🇳 Websites
+  - DOMAIN-SUFFIX,zimuzu.tv,🇨🇳 Websites
+  - DOMAIN-SUFFIX,zmz2019.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,zmzapi.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,zmzapi.net,🇨🇳 Websites
+  - DOMAIN-SUFFIX,zmzfile.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,chinanetcenter.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,wangsu.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,meixincdn.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,ipip.net,🇨🇳 Websites
+  - DOMAIN-SUFFIX,ip.la,🇨🇳 Websites
+  - DOMAIN-SUFFIX,ip-cdn.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,ipv6-test.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,test-ipv6.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,whatismyip.com,🇨🇳 Websites
+  - DOMAIN,ip.bjango.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,netspeedtestmaster.com,🇨🇳 Websites
+  - DOMAIN,speedtest.macpaw.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,awesome-hd.me,🇨🇳 Websites
+  - DOMAIN-SUFFIX,broadcasthe.net,🇨🇳 Websites
+  - DOMAIN-SUFFIX,chdbits.co,🇨🇳 Websites
+  - DOMAIN-SUFFIX,classix-unlimited.co.uk,🇨🇳 Websites
+  - DOMAIN-SUFFIX,empornium.me,🇨🇳 Websites
+  - DOMAIN-SUFFIX,gazellegames.net,🇨🇳 Websites
+  - DOMAIN-SUFFIX,hdchina.org,🇨🇳 Websites
+  - DOMAIN-SUFFIX,hdsky.me,🇨🇳 Websites
+  - DOMAIN-SUFFIX,jpopsuki.eu,🇨🇳 Websites
+  - DOMAIN-SUFFIX,keepfrds.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,m-team.cc,🇨🇳 Websites
+  - DOMAIN-SUFFIX,nanyangpt.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,ncore.cc,🇨🇳 Websites
+  - DOMAIN-SUFFIX,open.cd,🇨🇳 Websites
+  - DOMAIN-SUFFIX,ourbits.club,🇨🇳 Websites
+  - DOMAIN-SUFFIX,passthepopcorn.me,🇨🇳 Websites
+  - DOMAIN-SUFFIX,privatehd.to,🇨🇳 Websites
+  - DOMAIN-SUFFIX,redacted.ch,🇨🇳 Websites
+  - DOMAIN-SUFFIX,springsunday.net,🇨🇳 Websites
+  - DOMAIN-SUFFIX,tjupt.org,🇨🇳 Websites
+  - DOMAIN-SUFFIX,totheglory.im,🇨🇳 Websites
+  - DOMAIN-SUFFIX,cn,🇨🇳 Websites
+  - DOMAIN-SUFFIX,8686c.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,aixifan.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,beitaichufang.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,booking.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,bstatic.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,cailianpress.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,chunyu.mobi,🇨🇳 Websites
+  - DOMAIN-SUFFIX,chushou.tv,🇨🇳 Websites
+  - DOMAIN-SUFFIX,cmbchina.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,cmbimg.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,ctrip.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,dfcfw.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,douban.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,doubanio.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,douyu.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,dxycdn.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,eastmoney.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,futunn.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,geilicdn.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,hicloud.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,hostbuf.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,huya.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,infinitynewtab.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,ithome.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,keepcdn.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,kkmh.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,luojilab.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,maoyun.tv,🇨🇳 Websites
+  - DOMAIN-SUFFIX,meituan.net,🇨🇳 Websites
+  - DOMAIN-SUFFIX,mobike.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,mubu.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,myzaker.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,nvidia.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,paypal.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,paypalobjects.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,qyer.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,qyerstatic.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,ronghub.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,ruguoapp.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,smzdm.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,snapdrop.net,🇨🇳 Websites
+  - DOMAIN-SUFFIX,sspai.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,teamviewer.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,tianyancha.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,udacity.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,uning.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,weather.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,weidian.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,xmcdn.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,yangkeduo.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,zhangzishi.cc,🇨🇳 Websites
+  - DOMAIN-SUFFIX,zhihu.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,zhimg.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,zhuihd.com,🇨🇳 Websites
+  - DOMAIN,download.jetbrains.com,🇨🇳 Websites
+  - DOMAIN-SUFFIX,local,🇨🇳 Websites
+  - DOMAIN,mtalk.google.com,🇨🇳 Websites
+  - IP-CIDR,192.168.0.0/16,🇨🇳 Websites
+  - IP-CIDR,10.0.0.0/8,🇨🇳 Websites
+  - IP-CIDR,172.16.0.0/12,🇨🇳 Websites
+  - IP-CIDR,127.0.0.0/8,🇨🇳 Websites
+  - IP-CIDR,100.64.0.0/10,🇨🇳 Websites
   - DOMAIN-SUFFIX,appspot.com,Final
   - DOMAIN-SUFFIX,blogger.com,Final
   - DOMAIN-SUFFIX,getoutline.org,Final
@@ -1739,5 +1761,30 @@ rules:
   - DOMAIN-SUFFIX,wolframalpha.com,Final
   - DOMAIN-SUFFIX,x-art.com,Final
   - DOMAIN-SUFFIX,yimg.com,Final
-  - GEOIP,CN,China-Websites
+  - GEOIP,CN,🇨🇳 Websites
   - MATCH,Final
+
+cfw-bypass:
+  - qq.com
+  - music.163.com
+  - localhost
+  - 127.*
+  - 10.*
+  - 172.16.*
+  - 172.17.*
+  - 172.18.*
+  - 172.19.*
+  - 172.20.*
+  - 172.21.*
+  - 172.22.*
+  - 172.23.*
+  - 172.24.*
+  - 172.25.*
+  - 172.26.*
+  - 172.27.*
+  - 172.28.*
+  - 172.29.*
+  - 172.30.*
+  - 172.31.*
+  - 192.168.*
+  - <local>
