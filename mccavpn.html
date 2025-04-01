@@ -1,3 +1,8 @@
+#---------------------------------------------------#
+## 更新：2025-04-01 11:32
+## 感谢：https://github.com/Hackl0us/SS-Rule-Snippet
+#---------------------------------------------------#
+
 # HTTP 代理端口
 port: 7890 
 
@@ -11,14 +16,14 @@ redir-port: 7892
 mixed-port: 7893
 
 # 允许局域网的连接
-allow-lan: true
+allow-lan: false
 
 # 规则模式：Rule（规则） / Global（全局代理）/ Direct（全局直连）
 mode: Rule
 
 # 设置日志输出级别 (默认级别：silent，即不输出任何内容，以避免因日志内容过大而导致程序内存溢出）。
 # 5 个级别：silent / info / warning / error / debug。级别越高日志输出量越大，越倾向于调试，若需要请自行开启。
-log-level: info
+log-level: silent
 # Clash 的 RESTful API
 external-controller: '0.0.0.0:9090'
 secret: '' 
@@ -44,7 +49,6 @@ dns:
   ipv6: false
   enhanced-mode: fake-ip
   fake-ip-filter:
-    - "*.pku.edu.cn"
     - "*.lan"
     - stun.*.*.*
     - stun.*.*
@@ -144,78 +148,67 @@ dns:
 proxies:
 - name: "US美國 01"
   type: ss
-  server: c86s1.jjcruises.com
+  server: 97.64.31.19
   port: 5299
   cipher: aes-256-gcm
   password: "qLUAjTTF34Aj2Ktg"
   udp: true
-  tfo: false
 
 - name: "US美國 02"
   type: ss
-  server: c86s2.jjcruises.com
+  server: 97.64.18.105
   port: 5299
   cipher: aes-256-gcm
   password: "qLUAjTTF34Aj2Ktg"
   udp: true
-  tfo: false
   
 - name: "US美國 03"
   type: vmess
-  server: c86s3.jjcruises.com
+  server: 95.169.24.30
   port: 5299
   uuid: 0bb9becb-d337-4a79-8b51-e6a4188e2661
   alterId: 0
-  cipher: auto
+  cipher: chacha20-poly1305
   tls: true
-  tfo: false
   udp: true
   allowInsecure : true
   skip-cert-verify : true
 
 - name: "US美國 04"
   type: vmess
-  server: c86s4.jjcruises.com
+  server: 45.78.51.26
   port: 5299
   uuid: 0bb9becb-d337-4a79-8b51-e6a4188e2661
   alterId: 0
   cipher: chacha20-poly1305
   tls: true
-  tfo: false
   udp: true
   allowInsecure : true
   skip-cert-verify : true
 
 - name: "US美國 05"
   type: vmess
-  server: c86s5.jjcruises.com
+  server: 162.248.78.70
   port: 5299
   uuid: 0bb9becb-d337-4a79-8b51-e6a4188e2661
   alterId: 0
   cipher: chacha20-poly1305
   tls: true
-  tfo: false
   udp: true
   allowInsecure : true
   skip-cert-verify : true
 
 - name: "US美國 06"
   type: vmess
-  server: c86s801.jjcruises.com
+  server: 174.137.62.232
   port: 5299
   uuid: 0bb9becb-d337-4a79-8b51-e6a4188e2661
   alterId: 0
   cipher: chacha20-poly1305
   tls: true
-  tfo: false
   udp: true
   allowInsecure : true
   skip-cert-verify : true
-
-- name: "CN中國 PKU"
-  type: socks5
-  port: 11080
-  server: 127.0.0.1
 
 proxy-groups:
   - name: PROXY
@@ -393,12 +386,6 @@ proxy-groups:
     proxies:
       - DIRECT
       - PROXY
-
-  - name: 🇨🇳 PKU
-    type: select
-    proxies:
-      - DIRECT
-      - CN中國 PKU
   
   - name: 🇨🇳 Websites
     type: select
@@ -411,10 +398,12 @@ proxy-groups:
     proxies:
       - PROXY
       - DIRECT
+
+# 规则  
 rules:
-  - DOMAIN-SUFFIX,pku.edu.cn,🇨🇳 PKU
   - DOMAIN-SUFFIX,chatgpt.com,🧠 OpenAI
   - DOMAIN-SUFFIX,openai.com,🧠 OpenAI
+  - DOMAIN-SUFFIX,linkedin.com,PROXY
   - DOMAIN-SUFFIX,ap.spotify.com,DIRECT
   - DOMAIN-KEYWORD,epochtimes,REJECT
   - DOMAIN-SUFFIX,881903.com,REJECT
@@ -811,8 +800,7 @@ rules:
   - DOMAIN-SUFFIX,hboasia.com,📺 International-Media
   - DOMAIN-SUFFIX,hbogo.com,📺 International-Media
   - DOMAIN-SUFFIX,hbogoasia.hk,📺 International-Media
-  - DOMAIN,44wilhpljf.execute-api.ap-southeast-1.amazonaws.com,📺
-    International-Media
+  - DOMAIN,44wilhpljf.execute-api.ap-southeast-1.amazonaws.com,📺 International-Media
   - DOMAIN,bcbolthboa-a.akamaihd.net,📺 International-Media
   - DOMAIN,cf-images.ap-southeast-1.prod.boltdns.net,📺 International-Media
   - DOMAIN,manifest.prod.boltdns.net,📺 International-Media
@@ -1764,28 +1752,3 @@ rules:
   - DOMAIN-SUFFIX,yimg.com,Final
   - GEOIP,CN,🇨🇳 Websites
   - MATCH,Final
-
-cfw-bypass:
-  - qq.com
-  - music.163.com
-  - localhost
-  - 127.*
-  - 10.*
-  - 172.16.*
-  - 172.17.*
-  - 172.18.*
-  - 172.19.*
-  - 172.20.*
-  - 172.21.*
-  - 172.22.*
-  - 172.23.*
-  - 172.24.*
-  - 172.25.*
-  - 172.26.*
-  - 172.27.*
-  - 172.28.*
-  - 172.29.*
-  - 172.30.*
-  - 172.31.*
-  - 192.168.*
-  - <local>
