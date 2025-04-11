@@ -13,6 +13,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.10'  # 选择适合的 Python 版本
+
+    - name: Install dependencies
+      run: |
+        pip install base64
+    
     - name: Fetch data from API
       run: |
         # Replace with your actual API endpoint
