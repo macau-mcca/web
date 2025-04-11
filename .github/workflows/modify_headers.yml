@@ -23,6 +23,7 @@ jobs:
         JMS_SV: ${{ secrets.JMS_SV }}
         JMS_ID: ${{ secrets.JMS_ID }}
       run:
+        pip install requests
         python src/edit.py
     
     - name: Commit and push changes
