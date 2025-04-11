@@ -18,46 +18,13 @@ jobs:
       with:
         python-version: '3.10'  # 选择适合的 Python 版本
 
-    - name: Install dependencies
-      run: |
-        pip install base64
+    - name: Run Python
+      env:
+        JMS_SV: ${{ secrets.JMS_SV }}
+        JMS_ID: ${{ secrets.JMS_ID }}
+      run:
+        python src/edit.py
     
-    - name: Fetch data from API
-      run: |
-        # Replace with your actual API endpoint
-        API_URL="https://justmysocks5.net/members/getbwcounter.php?service=849862&id=0bb9becb-d337-4a79-8b51-e6a4188e2661"
-        
-        # Use curl to fetch the data and jq to parse it
-        RESPONSE=$(curl -s "$API_URL")
-        DOWNLOAD=$(echo $RESPONSE | jq -r '.bw_counter_b')
-        TOTAL=$(echo $RESPONSE | jq -r '.monthly_bw_limit_b')
-        NEXT_RENEWAL_DAY=$(echo $RESPONSE | jq -r '.bw_reset_day_of_month')
-        
-        CURRENT_DAY=$(date +"%d")
-        CURRENT_MONTH=$(date +"%m")
-        CURRENT_YEAR=$(date +"%Y")
-        
-        # Determine the renewal month and year
-        if (( NEXT_RENEWAL_DAY > CURRENT_DAY )); then
-            RENEWAL_MONTH=$CURRENT_MONTH
-            RENEWAL_YEAR=$CURRENT_YEAR
-        else
-            RENEWAL_MONTH=$(date -d "$CURRENT_MONTH/15 next month" +"%m")
-            RENEWAL_YEAR=$(date -d "$CURRENT_MONTH/15 next month" +"%Y")
-        fi
-        
-        # Calculate the Unix timestamp for the renewal day
-        EXPIRY_TIMESTAMP=$(date -d "$RENEWAL_YEAR-$RENEWAL_MONTH-$NEXT_RENEWAL_DAY" +%s)
-        
-        # Create the combined header value
-        HEADER_VALUE="upload=0; download=$DOWNLOAD; total=$TOTAL; expire=$EXPIRY_TIMESTAMP"
-        
-        # Modify the _headers file
-        echo "/mccavpn" > _headers
-        echo "  Subscription-Userinfo: $HEADER_VALUE" >> _headers
-        echo "/mccavpn.html" >> _headers
-        echo "  Subscription-Userinfo: $HEADER_VALUE" >> _headers
-
     - name: Commit and push changes
       run: |
         git config --local user.email "action@github.com"
